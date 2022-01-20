@@ -1,0 +1,11 @@
+UI
+- Player UI
+- Board UI
+- Logs UI
+
+PLAYERS
+- Ask for number of players
+- Ask for player usernames
+
+DOCUMENTATION
+- JavaDoc

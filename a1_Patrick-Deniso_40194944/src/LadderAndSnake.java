@@ -1,14 +1,11 @@
 import java.util.Random;
 
 public class LadderAndSnake {
-    static final int BOARD_WIDTH = 10;
-    static final int BOARD_HEIGHT = 10;
-
-    private Tile[][] board;
+    private Board board;
     private int numberOfPlayers;
 
     public LadderAndSnake(int numberOfPlayers){
-        generateBoard();
+        board = new Board();
         setNumberOfPlayers(numberOfPlayers);
     }
 
@@ -23,20 +20,8 @@ public class LadderAndSnake {
         else this.numberOfPlayers = numberOfPlayers;
     }
 
+
     // METHODS
-    private void generateBoard() {
-        board = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
-
-        // TO-DO: MAKE BOARD RANDOMLY GENERATED
-        /*
-        for(int i = 0; i < BOARD_WIDTH; i++){
-            for(int j = 0; j < BOARD_HEIGHT; j++){
-
-            }
-        }
-
-         */
-    }
 
     private int flipDice(){
         Random rand = new Random();
