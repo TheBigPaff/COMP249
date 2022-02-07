@@ -6,8 +6,8 @@
  */
 
 public class Player {
-    int playerPosition;
-    String playerName;
+    private int playerPosition;
+    private String playerName;
 
     public Player(String playerName){
         this.playerName = playerName;
@@ -25,12 +25,16 @@ public class Player {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    /**
+     *  Advances the player's position of tilesCount amount of tiles
+     * @param tilesCount amount of tiles to advance
+     */
+    public void advancePlayerPosition(int tilesCount){
+        playerPosition += tilesCount;
     }
 
     @Override
     public String toString() {
-        return playerName;
+        return getPlayerName();
     }
 }

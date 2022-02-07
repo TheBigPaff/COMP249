@@ -38,7 +38,13 @@ public class LadderAndSnake {
         }
         System.out.println();
 
-        play();
+
+        scanner.nextLine(); // flush scanner
+        System.out.println("\nPress Enter key to play the game...");
+        if(scanner.hasNextLine()){
+            scanner.nextLine();
+            play(scanner);
+        }
     }
 
     private void promptPlayersNames(int numberOfPlayers, Scanner scanner) {
@@ -58,7 +64,7 @@ public class LadderAndSnake {
 
         // for every player, throw a dice
         for(int i = 0; i < numberOfPlayers; i++){
-            playersThrows.add(flipDice());
+            playersThrows.add(flipDie());
             System.out.printf("%s got a dice value of %d\n", players.get(i), playersThrows.get(i));
         }
 
@@ -113,7 +119,7 @@ public class LadderAndSnake {
                 System.out.print(". Attempting to break the tie.\n");
 
                 for(i = tieSubsetStartIndex; i <= tieSubsetEndIndex; i++){
-                    playersThrows.set(i, flipDice());
+                    playersThrows.set(i, flipDie());
                     System.out.printf("%s got a dice value of %d\n", players.get(i), playersThrows.get(i));
                 }
 
@@ -153,7 +159,7 @@ public class LadderAndSnake {
      *
      * @return random value between 1 and 6 inclusively.
      */
-    private int flipDice(){
+    private int flipDie(){
         Random rand = new Random();
         return rand.nextInt(6) + 1;
     }
@@ -161,9 +167,59 @@ public class LadderAndSnake {
     /**
      * Initiates the core engine of the game where the players start to play the game.
      */
-    private void play(){
+    private void play(Scanner scanner){
         board = new Board();
+        board.drawBoard(players);
 
+        boolean gameOver = false;
+        while(!gameOver){
+            System.out.println("Press the Enter key for the next turn...");
+            if(scanner.hasNextLine()) scanner.nextLine();
+
+            // advance each player
+            for (Player value : players) {
+                int dieValue = flipDie();
+                System.out.printf("%s got die value of %d; ", value, dieValue);
+
+
+                // check if player would tile 100
+                if ((value.getPlayerPosition() + dieValue) > board.getLastTileNumber()) {
+                    int newSquare = board.getLastTileNumber() - (dieValue - (board.getLastTileNumber() - value.getPlayerPosition()));
+                    value.setPlayerPosition(newSquare);
+                    System.out.printf("surpassed tile %d, ", board.getLastTileNumber());
+                } else {
+                    value.advancePlayerPosition(dieValue);
+                }
+
+                Tile newTile = board.getTileFromPosition(value.getPlayerPosition());
+                if (newTile.getType() == TileType.LADDER) {
+                    System.out.printf("gone to square %d then climbed up to square %d\n", value.getPlayerPosition(), newTile.getDestination());
+                    value.setPlayerPosition(newTile.getDestination());
+                } else if (newTile.getType() == TileType.SNAKE) {
+                    System.out.printf("gone to square %d then dropped down to square %d\n", value.getPlayerPosition(), newTile.getDestination());
+                    value.setPlayerPosition(newTile.getDestination());
+                } else {
+                    System.out.println("now in square " + value.getPlayerPosition());
+                }
+            }
+
+            // TODO render new board
+            board.drawBoard(players);
+
+            // check if anyone has won
+            for (Player player : players) {
+                if (player.getPlayerPosition() == 100) {
+                    gameOver = true;
+                    System.out.printf("\n%s WON THE GAME!!!", player);
+                }
+            }
+            if(!gameOver){
+                System.out.println("Game not over; flippin again");
+            }
+            else{
+                System.out.println("\n\nGame over. I hope every had fun!");
+            }
+        }
     }
 
 

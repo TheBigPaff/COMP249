@@ -30,7 +30,7 @@ public class PlayLadderAndSnake {
         while(!validInput){
             if(scanner.hasNextInt()){
                 numberOfPlayers = scanner.nextInt();
-                if(numberOfPlayers <= 4 && numberOfPlayers >= 1){
+                if(numberOfPlayers <= 4 && numberOfPlayers >= 2){
                     validInput = true;
                 }
             }

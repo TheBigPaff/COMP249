@@ -5,6 +5,7 @@
  * Due Date: 07/02/2022
  */
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
@@ -30,9 +31,11 @@ public class Board {
         board = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
 
         generateBoard();
-        drawBoard();
     }
 
+    /**
+     * A method that prints a divider
+     */
     private void divideRow(){
         // print dashes to divide each row
         for(int k = 0; k < BOARD_WIDTH * 16; k++){
@@ -44,7 +47,7 @@ public class Board {
     /**
      * Renders the board to the console.
      */
-    public void drawBoard(){
+    public void drawBoard(ArrayList<Player> players){
         // start from the top and work your way down to the bottom to draw the table
         int count = 101;
         for(int y = BOARD_HEIGHT - 1; y >= 0; y--){
@@ -61,11 +64,11 @@ public class Board {
                 System.out.println();
                 for(int x = 0; x < BOARD_WIDTH; x++){
                     // now print if there's a ladder of snake
-                    if(board[x][y].type == TileType.LADDER){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Climb to ", board[x][y].destination, " ");
+                    if(board[x][y].getType() == TileType.LADDER){
+                        System.out.format("%1s%10s%3d%1s|", " ", "Climb to ", board[x][y].getDestination(), " ");
                     }
-                    else if(board[x][y].type == TileType.SNAKE){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Drop to ", board[x][y].destination, " ");
+                    else if(board[x][y].getType() == TileType.SNAKE){
+                        System.out.format("%1s%10s%3d%1s|", " ", "Drop to ", board[x][y].getDestination(), " ");
                     }
                     else{
                         for(int k = 0; k < 15; k++){
@@ -74,6 +77,19 @@ public class Board {
                         System.out.print("|");
                     }
                 }
+                for(Player player : players){
+                    System.out.println();
+                    for(int x = 0; x < BOARD_WIDTH; x++){
+                        if(player.getPlayerPosition() == count){
+                            System.out.format("%15s", player);
+                        }
+                        else{
+                            System.out.format("%15s", " ");
+                        }
+                        System.out.print("|");
+                    }
+                }
+
                 count -= 10;
             }
             else{
@@ -84,15 +100,27 @@ public class Board {
                 System.out.println();
                 for(int x = BOARD_WIDTH - 1; x >= 0; x--){
                     // now print if there's a ladder of snake
-                    if(board[x][y].type == TileType.LADDER){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Climb to ", board[x][y].destination, " ");
+                    if(board[x][y].getType() == TileType.LADDER){
+                        System.out.format("%1s%10s%3d%1s|", " ", "Climb to ", board[x][y].getDestination(), " ");
                     }
-                    else if(board[x][y].type == TileType.SNAKE){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Drop to ", board[x][y].destination, " ");
+                    else if(board[x][y].getType() == TileType.SNAKE){
+                        System.out.format("%1s%10s%3d%1s|", " ", "Drop to ", board[x][y].getDestination(), " ");
                     }
                     else{
                         for(int k = 0; k < 15; k++){
                             System.out.print(" ");
+                        }
+                        System.out.print("|");
+                    }
+                }
+                for(Player player : players){
+                    System.out.println();
+                    for(int x = 0; x < BOARD_WIDTH; x++){
+                        if(player.getPlayerPosition() == count){
+                            System.out.format("%15s", player);
+                        }
+                        else{
+                            System.out.format("%15s", " ");
                         }
                         System.out.print("|");
                     }
@@ -166,9 +194,9 @@ public class Board {
             int position = 0;
             boolean foundTile = false;
             while(!foundTile){
-                // min is first of second row, max is the last tile of the last row
+                // min is first of second row, max is the second to last tile of the last row
                 int min = BOARD_WIDTH + 1;
-                int max = BOARD_WIDTH * BOARD_HEIGHT;
+                int max = BOARD_WIDTH * BOARD_HEIGHT - 1;
                 position = (int) Math.floor(Math.random()*(max-min+1)+min);
 
                 // check if tile is free
@@ -178,7 +206,7 @@ public class Board {
                     boolean tileIsDestination = false;
                     for(int y = 0; y < BOARD_HEIGHT; y++){
                         for (int x = 0; x < BOARD_WIDTH; x++){
-                            if (board[x][y] != null && board[x][y].destination == position) {
+                            if (board[x][y] != null && board[x][y].getDestination() == position) {
                                 tileIsDestination = true;
                                 break;
                             }
@@ -224,6 +252,11 @@ public class Board {
         }
     }
 
+    /**
+     * Returns the coordinate (struct of x and y values) given a tile number.
+     * @param tileNumber number of the tile to get the coordinate from
+     * @return object of type Coordinate
+     */
     private Coordinate getCoordinateFromTileNumber(int tileNumber){
         int count = 0;
         Coordinate coordinate = new Coordinate();
@@ -239,5 +272,24 @@ public class Board {
         }
 
         return coordinate;
+    }
+
+    /**
+     * A method that returns the a Tile object given a tile number.
+     * @param tileNumber number of the tile to get the Tile from
+     * @return object of type Tile
+     */
+    public Tile getTileFromPosition(int tileNumber){
+        Coordinate coords = getCoordinateFromTileNumber(tileNumber);
+        return board[coords.x][coords.y];
+    }
+
+    /**
+     * Method that returns last tile number.
+     * This is because this game supports multiple board sizes
+     * @return last tile number
+     */
+    public int getLastTileNumber(){
+        return BOARD_WIDTH * BOARD_HEIGHT;
     }
 }

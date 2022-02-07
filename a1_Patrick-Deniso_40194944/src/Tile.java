@@ -6,9 +6,9 @@
  */
 
 public class Tile {
-    TileType type;
-    int position;
-    int destination;
+    private TileType type;
+    private int position;
+    private int destination;
 
     public Tile(TileType type, int position, int destination){
         this.type = type;
