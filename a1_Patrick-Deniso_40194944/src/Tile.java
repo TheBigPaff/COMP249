@@ -6,6 +6,8 @@ public class Tile {
     public Tile(TileType type, int position, int destination){
         this.type = type;
         this.position = position;
+
+        // safety check
         if(type == TileType.DEFAULT){
             destination = position + 1;
         }

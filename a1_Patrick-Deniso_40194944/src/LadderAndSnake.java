@@ -5,7 +5,6 @@ public class LadderAndSnake {
     private int numberOfPlayers;
 
     public LadderAndSnake(int numberOfPlayers){
-        board = new Board();
         setNumberOfPlayers(numberOfPlayers);
     }
 
@@ -23,13 +22,20 @@ public class LadderAndSnake {
 
     // METHODS
 
-    private int flipDice(){
+    /**
+     *
+     * @return random value between 1 and 6 inclusively.
+     */
+    public int FlipDice(){
         Random rand = new Random();
         return rand.nextInt(6) + 1;
     }
 
-    private void play(){
-
+    /**
+     * Initiates the core engine of the game where the players start to play the game.
+     */
+    public void Play(){
+        board = new Board();
     }
 
 
