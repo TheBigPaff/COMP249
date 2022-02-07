@@ -106,7 +106,7 @@ public class Board {
     }
 
     /**
-     * Generates a procedurally generated board given the parameters hardcoded as costants in the Board class.
+     * Generates a procedurally generated board given the parameters hardcoded as constants in the Board class.
      * This board is set as the board 2D-array of the Board class.
      */
     private void generateBoard() {

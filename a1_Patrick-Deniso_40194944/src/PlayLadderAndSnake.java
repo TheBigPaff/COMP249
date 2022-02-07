@@ -9,9 +9,12 @@ import java.util.Scanner;
 
 public class PlayLadderAndSnake {
     public static void main(String[] args) {
-        int playersCount = promptPlayersCount();
+        Scanner scanner = new Scanner(System.in);
 
-        LadderAndSnake game = new LadderAndSnake(playersCount);
+        int playersCount = promptPlayersCount(scanner);
+        LadderAndSnake game = new LadderAndSnake(playersCount, scanner);
+
+        scanner.close();
     }
 
     /**
@@ -19,9 +22,8 @@ public class PlayLadderAndSnake {
      * Returns -1 if the user has failed for 4 times to enter a valid input (integer between 1 and 4 inclusive).
      * @return number of players or -1 if the input failed.
      */
-    private static int promptPlayersCount() {
+    private static int promptPlayersCount(Scanner scanner) {
         System.out.print("Enter the # of players for your game - Number must be between 2 and 4 inclusively: ");
-        Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         int numberOfPlayers = -1;
         int badAttemptCount = 0;
@@ -45,7 +47,6 @@ public class PlayLadderAndSnake {
                 }
             }
         }
-        scanner.close();
 
         return numberOfPlayers;
     }

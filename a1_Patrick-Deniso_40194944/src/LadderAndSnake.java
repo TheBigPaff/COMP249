@@ -12,21 +12,53 @@ public class LadderAndSnake {
     int numberOfPlayers;
     private ArrayList<Player> players;
 
-    public LadderAndSnake(int numberOfPlayers){
+    public LadderAndSnake(int numberOfPlayers, Scanner scanner){
         setNumberOfPlayers(numberOfPlayers);
 
         System.out.println("Game is played by "+numberOfPlayers+" players");
-        System.out.println("Now deciding which player will start playing");
 
-        // TODO ask for player's name
-        // FIND ORDER OF PLAYERS
-        ArrayList<Player> players = new ArrayList<>();
+
+        players = new ArrayList<>();
+
+        // for every player, ask name
+        promptPlayersNames(numberOfPlayers, scanner);
+
+        System.out.println("\nNow deciding which player will start playing...");
+        playersDiceRoll();
+
+        // Print sorted players
+        System.out.println("Reached final decision on order of playing: ");
+        for(int i = 0; i < numberOfPlayers; i++){
+            if(i == numberOfPlayers - 1){
+                System.out.print(players.get(i));
+            }
+            else{
+                System.out.print(players.get(i) + ", ");
+            }
+        }
+        System.out.println();
+
+        play();
+    }
+
+    private void promptPlayersNames(int numberOfPlayers, Scanner scanner) {
+        for(int i = 0; i < numberOfPlayers; i++){
+            System.out.print("Enter name for Player "+ i + ": ");
+            String name = scanner.next();
+            players.add(new Player(name));
+        }
+    }
+
+    /**
+     * Method that for every player in the ArrayList players of the class LadderAndSnake, will roll a die and resolve any ties.
+     * Based on the die rolls, the players are sorted accordingly in the list.
+     */
+    private void playersDiceRoll() {
         ArrayList<Integer> playersThrows = new ArrayList<>();
 
         // for every player, throw a dice
         for(int i = 0; i < numberOfPlayers; i++){
             playersThrows.add(flipDice());
-            players.add(new Player("Player"+i));
             System.out.printf("%s got a dice value of %d\n", players.get(i), playersThrows.get(i));
         }
 
@@ -67,7 +99,7 @@ public class LadderAndSnake {
                 }
             }
             if(tieSubsetStartIndex == -1) areThereTies = false;
-            // resolve ONLY the ties, in that subset of the array
+                // resolve ONLY the ties, in that subset of the array
             else{
                 System.out.print("A tie was achieved between: ");
                 for(i = tieSubsetStartIndex; i <= tieSubsetEndIndex; i++){
@@ -101,28 +133,6 @@ public class LadderAndSnake {
                         }
             }
         }
-
-
-        /*
-        https://stackoverflow.com/questions/35767949/struggling-to-keep-an-algorithm-to-order-players-by-dice-roll-tidy
-        * You can put all of the players into an array - the order of the players in an array can be used to indicate the order of play.
-        Get them all to pick a dice roll; then sort them by the number they rolled (using a custom comparator).
-        Now, look for 2 or more players that rolled the same number - these are next to each other because the array is sorted.
-        Now, you can recursively call the same logic to get just those players to re-roll, but only on the portion of the array where those players had the same dice roll.
-        * */
-
-        System.out.println("Reached final decision on order of playing: ");
-        for(int i = 0; i < numberOfPlayers; i++){
-            if(i == numberOfPlayers - 1){
-                System.out.print(players.get(i));
-            }
-            else{
-                System.out.print(players.get(i) + ", ");
-            }
-        }
-        System.out.println();
-
-        //play();
     }
 
     // ACCESSOR/MUTATORS METHODS
@@ -153,6 +163,7 @@ public class LadderAndSnake {
      */
     private void play(){
         board = new Board();
+
     }
 
 
