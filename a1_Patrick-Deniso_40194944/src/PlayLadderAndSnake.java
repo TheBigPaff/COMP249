@@ -1,5 +1,10 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+/*
+ * Patrick Deniso (40194944)
+ * COMP249
+ * Assignment # 1
+ * Due Date: 07/02/2022
+ */
+
 import java.util.Scanner;
 
 public class PlayLadderAndSnake {
@@ -15,7 +20,7 @@ public class PlayLadderAndSnake {
      * @return number of players or -1 if the input failed.
      */
     private static int promptPlayersCount() {
-        System.out.println("Enter the # of players for your game - Number must be between 2 and 4 inclusively:");
+        System.out.print("Enter the # of players for your game - Number must be between 2 and 4 inclusively: ");
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         int numberOfPlayers = -1;

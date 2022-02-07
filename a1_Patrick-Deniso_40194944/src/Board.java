@@ -1,4 +1,10 @@
-import javax.swing.text.Position;
+/*
+ * Patrick Deniso (40194944)
+ * COMP249
+ * Assignment # 1
+ * Due Date: 07/02/2022
+ */
+
 import java.util.Random;
 
 public class Board {

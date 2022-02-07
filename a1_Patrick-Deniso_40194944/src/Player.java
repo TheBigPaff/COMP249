@@ -1,3 +1,10 @@
+/*
+ * Patrick Deniso (40194944)
+ * COMP249
+ * Assignment # 1
+ * Due Date: 07/02/2022
+ */
+
 public class Player {
     int playerPosition;
     String playerName;
