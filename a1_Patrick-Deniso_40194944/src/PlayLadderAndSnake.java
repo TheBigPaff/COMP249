@@ -1,13 +1,12 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayLadderAndSnake {
     public static void main(String[] args) {
-        //int playersCount = promptPlayersCount();
-        int playersCount = 1;
+        int playersCount = promptPlayersCount();
 
-        // TODO play game
         LadderAndSnake game = new LadderAndSnake(playersCount);
-        game.Play();
     }
 
     /**

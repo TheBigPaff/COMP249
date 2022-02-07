@@ -34,6 +34,10 @@ public class Board {
         }
         System.out.println();
     }
+
+    /**
+     * Renders the board to the console.
+     */
     public void drawBoard(){
         // start from the top and work your way down to the bottom to draw the table
         int count = 101;
@@ -95,6 +99,10 @@ public class Board {
 
     }
 
+    /**
+     * Generates a procedurally generated board given the parameters hardcoded as costants in the Board class.
+     * This board is set as the board 2D-array of the Board class.
+     */
     private void generateBoard() {
         // First, let's spawn the ladders
         for(int i = 0; i < LADDERS_COUNT; i++){
@@ -211,8 +219,6 @@ public class Board {
     }
 
     private Coordinate getCoordinateFromTileNumber(int tileNumber){
-        // TODO: remake, very bad
-
         int count = 0;
         Coordinate coordinate = new Coordinate();
 
