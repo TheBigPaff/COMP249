@@ -16,6 +16,18 @@ import java.util.Scanner;
 
 /**
  * The driver class that prompts the user to enter the number of players, validates the input and then starts the game.
+ *  <br>
+ *  <br>Patrick Deniso (40194944)
+ *  <br>COMP249
+ *  <br>Assignment # 1
+ *  <br>Due Date: 07/02/2022
+ *
+ *  <br>This program will let 2 to 4 people play Ladder and Snake.
+ *  The program will handle everything, from the rolling of the dice to the drawing of the board one the console.
+ *  The program also resolves any dice ties at the beginning when choosing the order of the players.
+ *
+ *  <br>One MAJOR feature of this program is that it randomly generates the board. The board is also customizable, it can be of any size and there can be
+ *  as many ladders and snakes as wanted.
  */
 public class PlayLadderAndSnake {
     public static void main(String[] args) {

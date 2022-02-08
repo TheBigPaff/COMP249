@@ -10,9 +10,12 @@ import java.util.Random;
 
 
 /**
- * The Board class that other than storing the 2D tile array, also handles board generation and board rendering on the console.
+ * The Board class that stores the 2D tile array and also handles board random generation and board rendering on the console.
  */
 public class Board {
+    /**
+     * Coordinate class (works as a struct) that is useful for dealing with the 2D tile array, since we need x and y coords to access elements.
+     */
     class Coordinate{
         int x;
         int y;
@@ -31,6 +34,9 @@ public class Board {
 
     private Tile[][] board;
 
+    /**
+     * Board constructor that calls the method that generates a random board.
+     */
     public Board(){
         board = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
 
