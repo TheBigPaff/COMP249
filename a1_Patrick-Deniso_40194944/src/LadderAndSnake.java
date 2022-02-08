@@ -7,11 +7,20 @@
 
 import java.util.*;
 
+/**
+ * The game class that handles the core gameplay
+ */
 public class LadderAndSnake {
     private Board board;
     int numberOfPlayers;
     private ArrayList<Player> players;
 
+    /**
+     * Constructor of the LadderAndSnake class, where the user is prompted to enter the player names, and then all players
+     * roll dice, ties are resolved and the players are sorted in the players ArrayList.
+     * @param numberOfPlayers number of players that play in the game
+     * @param scanner scanner
+     */
     public LadderAndSnake(int numberOfPlayers, Scanner scanner){
         setNumberOfPlayers(numberOfPlayers);
 
@@ -47,6 +56,11 @@ public class LadderAndSnake {
         }
     }
 
+    /**
+     * Method that asks for the players' names.
+     * @param numberOfPlayers number of players that play the game
+     * @param scanner scanner
+     */
     private void promptPlayersNames(int numberOfPlayers, Scanner scanner) {
         for(int i = 0; i < numberOfPlayers; i++){
             System.out.print("Enter name for Player "+ i + ": ");
@@ -152,11 +166,8 @@ public class LadderAndSnake {
         else this.numberOfPlayers = numberOfPlayers;
     }
 
-
-    // METHODS
-
     /**
-     *
+     * Method that flips a die using the Random util.
      * @return random value between 1 and 6 inclusively.
      */
     private int flipDie(){
@@ -166,6 +177,8 @@ public class LadderAndSnake {
 
     /**
      * Initiates the core engine of the game where the players start to play the game.
+     * Advances player's positions, check if they landed or snake/ladder, and check if any of them won.
+     * Also calls the rendering method of the board after every turn to update the board.
      */
     private void play(Scanner scanner){
         board = new Board();
@@ -203,7 +216,7 @@ public class LadderAndSnake {
                 }
             }
 
-            // TODO render new board
+            // render board
             board.drawBoard(players);
 
             // check if anyone has won
@@ -213,11 +226,8 @@ public class LadderAndSnake {
                     System.out.printf("\n%s WON THE GAME!!!", player);
                 }
             }
-            if(!gameOver){
-                System.out.println("Game not over; flippin again");
-            }
-            else{
-                System.out.println("\n\nGame over. I hope every had fun!");
+            if(gameOver){
+                System.out.println("\n\nGame over. I hope everyone had fun!");
             }
         }
     }

@@ -8,6 +8,10 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+
+/**
+ * The Board class that other than storing the 2D tile array, also handles board generation and board rendering on the console.
+ */
 public class Board {
     class Coordinate{
         int x;
@@ -38,8 +42,13 @@ public class Board {
      */
     private void divideRow(){
         // print dashes to divide each row
-        for(int k = 0; k < BOARD_WIDTH * 16; k++){
-            System.out.print("-");
+        for(int k = 0; k < (BOARD_WIDTH * 16) + 1; k++){
+            if(k % 16 == 0) {
+                System.out.print("+");
+            }
+            else{
+                System.out.print("-");
+            }
         }
         System.out.println();
     }
@@ -56,81 +65,86 @@ public class Board {
             // now if 'y' is odd: count decreases
             // if 'y' is even: count increases
             if(y % 2 == 0){
-                count -= 10;
+                count -= BOARD_WIDTH;
                 for(int x = 0; x < BOARD_WIDTH; x++){
+                    if(x==0) System.out.print("|");
                     System.out.format("%6s%3d%6s|", " ", count, " ");
                     count++;
                 }
                 System.out.println();
                 for(int x = 0; x < BOARD_WIDTH; x++){
+                    if(x==0) System.out.print("|");
                     // now print if there's a ladder of snake
-                    if(board[x][y].getType() == TileType.LADDER){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Climb to ", board[x][y].getDestination(), " ");
-                    }
-                    else if(board[x][y].getType() == TileType.SNAKE){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Drop to ", board[x][y].getDestination(), " ");
-                    }
-                    else{
-                        for(int k = 0; k < 15; k++){
-                            System.out.print(" ");
-                        }
-                        System.out.print("|");
-                    }
+                    printSpecialTile(y, x);
                 }
-                for(Player player : players){
-                    System.out.println();
-                    for(int x = 0; x < BOARD_WIDTH; x++){
-                        if(player.getPlayerPosition() == count){
-                            System.out.format("%15s", player);
-                        }
-                        else{
-                            System.out.format("%15s", " ");
-                        }
-                        System.out.print("|");
-                    }
-                }
+                printPlayersLines(players, count - BOARD_WIDTH, true);
 
-                count -= 10;
+                count -= BOARD_WIDTH;
             }
             else{
                 for(int x = BOARD_WIDTH - 1; x >= 0; x--){
+                    if(x==BOARD_WIDTH - 1) System.out.print("|");
                     count--;
                     System.out.format("%6s%3d%6s|", " ", count, " ");
                 }
                 System.out.println();
                 for(int x = BOARD_WIDTH - 1; x >= 0; x--){
+                    if(x == BOARD_WIDTH - 1) System.out.print("|");
                     // now print if there's a ladder of snake
-                    if(board[x][y].getType() == TileType.LADDER){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Climb to ", board[x][y].getDestination(), " ");
-                    }
-                    else if(board[x][y].getType() == TileType.SNAKE){
-                        System.out.format("%1s%10s%3d%1s|", " ", "Drop to ", board[x][y].getDestination(), " ");
-                    }
-                    else{
-                        for(int k = 0; k < 15; k++){
-                            System.out.print(" ");
-                        }
-                        System.out.print("|");
-                    }
+                    printSpecialTile(y, x);
                 }
-                for(Player player : players){
-                    System.out.println();
-                    for(int x = 0; x < BOARD_WIDTH; x++){
-                        if(player.getPlayerPosition() == count){
-                            System.out.format("%15s", player);
-                        }
-                        else{
-                            System.out.format("%15s", " ");
-                        }
-                        System.out.print("|");
-                    }
-                }
+                printPlayersLines(players, count + 10, false);
             }
 
             System.out.println();
         }
         divideRow();
 
+    }
+
+    /**
+     * Method that prints if the square is a ladder or snake
+     * @param y coordinate y
+     * @param x coordinate x
+     */
+    private void printSpecialTile(int y, int x) {
+        if (board[x][y].getType() == TileType.LADDER) {
+            System.out.format("%1s%10s%3d%1s|", " ", "Climb to ", board[x][y].getDestination(), " ");
+        } else if (board[x][y].getType() == TileType.SNAKE) {
+            System.out.format("%1s%10s%3d%1s|", " ", "Drop to ", board[x][y].getDestination(), " ");
+        } else {
+            for (int k = 0; k < 15; k++) {
+                System.out.print(" ");
+            }
+            System.out.print("|");
+        }
+    }
+
+    /**
+     * Method that prints if there's a player in that square.
+     * @param players list of players
+     * @param count square's position
+     * @param tilesIncreasing boolean that states if that row of squares has increasing squares or decreasing squares going to the right.
+     */
+    private void printPlayersLines(ArrayList<Player> players, int count, boolean tilesIncreasing) {
+        for (Player player : players) {
+            System.out.println();
+            for (int x = 0; x < BOARD_WIDTH; x++) {
+                if(x==0) System.out.print("|");
+                if(!tilesIncreasing) count--;
+                if (player.getPlayerPosition() == count) {
+                    System.out.format("%10s%5s", player, " ");
+                } else {
+                    System.out.format("%15s", " ");
+                }
+                System.out.print("|");
+                if(tilesIncreasing) count++;
+            }
+            if(tilesIncreasing)
+                count -= BOARD_WIDTH;
+            else
+                count += BOARD_WIDTH;
+        }
     }
 
     /**

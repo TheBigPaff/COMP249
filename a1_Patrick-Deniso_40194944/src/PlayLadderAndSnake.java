@@ -3,16 +3,29 @@
  * COMP249
  * Assignment # 1
  * Due Date: 07/02/2022
+ *
+ * This program will let 2 to 4 people play Ladder and Snake.
+ * The program will handle everything, from the rolling of the dice to the drawing of the board one the console.
+ * The program also resolves any dice ties at the beginning when choosing the order of the players.
+ *
+ * One MAJOR feature of this program is that it randomly generates the board. The board is also customizable, it can be of any size and there can be
+ * as many ladders and snakes as wanted.
  */
 
 import java.util.Scanner;
 
+/**
+ * The driver class that prompts the user to enter the number of players, validates the input and then starts the game.
+ */
 public class PlayLadderAndSnake {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Welcome to the ULTIMATE LADDER AND SNAKE game, made by Patrick Deniso @ Concordia University.\n");
         int playersCount = promptPlayersCount(scanner);
-        LadderAndSnake game = new LadderAndSnake(playersCount, scanner);
+        if(playersCount != -1){
+            LadderAndSnake game = new LadderAndSnake(playersCount, scanner);
+        }
 
         scanner.close();
     }
@@ -29,8 +42,9 @@ public class PlayLadderAndSnake {
         int badAttemptCount = 0;
         while(!validInput){
             if(scanner.hasNextInt()){
-                numberOfPlayers = scanner.nextInt();
-                if(numberOfPlayers <= 4 && numberOfPlayers >= 2){
+                int input = scanner.nextInt();
+                if(input <= 4 && input >= 2){
+                    numberOfPlayers = input;
                     validInput = true;
                 }
             }
@@ -43,7 +57,7 @@ public class PlayLadderAndSnake {
                     break;
                 }
                 else{
-                    System.out.println("Bad Attempt " + badAttemptCount + " - Invalid # of players. Please enter a # between 2 and 4 inclusively:");
+                    System.out.print("Bad Attempt " + badAttemptCount + " - Invalid # of players. Please enter a # between 2 and 4 inclusively: ");
                 }
             }
         }

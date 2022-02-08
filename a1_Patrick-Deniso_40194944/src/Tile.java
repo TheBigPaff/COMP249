@@ -5,6 +5,9 @@
  * Due Date: 07/02/2022
  */
 
+/**
+ * Tile class, that stores the TileType (Default, Ladder, Snake), Tile position and Tile destination.
+ */
 public class Tile {
     private TileType type;
     private int position;

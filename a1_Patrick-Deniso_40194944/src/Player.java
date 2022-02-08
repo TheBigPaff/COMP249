@@ -5,6 +5,9 @@
  * Due Date: 07/02/2022
  */
 
+/**
+ * The Player class that stores the player position and the player name.
+ */
 public class Player {
     private int playerPosition;
     private String playerName;
@@ -33,6 +36,9 @@ public class Player {
         playerPosition += tilesCount;
     }
 
+    /**
+     * @return the player's name
+     */
     @Override
     public String toString() {
         return getPlayerName();
