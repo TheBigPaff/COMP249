@@ -2,10 +2,12 @@ package copters;
 
 import airplane.Airplane;
 
+import java.util.Objects;
+
 public class Helicopter extends Airplane {
-    private int cylindersCount;
-    private int creationYear;
-    private int passengerCapacity;
+    protected int cylindersCount;
+    protected int creationYear;
+    protected int passengerCapacity;
 
     public Helicopter(){
         super();
@@ -26,5 +28,46 @@ public class Helicopter extends Airplane {
         this.cylindersCount = cylindersCount;
         this.creationYear = creationYear;
         this.passengerCapacity = passengerCapacity;
+    }
+
+    public int getCylindersCount() {
+        return cylindersCount;
+    }
+
+    public int getCreationYear() {
+        return creationYear;
+    }
+
+    public int getPassengerCapacity() {
+        return passengerCapacity;
+    }
+
+    public void setCylindersCount(int cylindersCount) {
+        this.cylindersCount = cylindersCount;
+    }
+
+    public void setCreationYear(int creationYear) {
+        this.creationYear = creationYear;
+    }
+
+    public void setPassengerCapacity(int passengerCapacity) {
+        this.passengerCapacity = passengerCapacity;
+    }
+
+    @Override
+    public String toString() {
+        return "This helicopter is manufactured by " + brand + ". It costs " + price + "$, and has a horsepower of " + horsepower + "." +
+                "It also has " + cylindersCount + " cilinders, a passenger capacity of " + passengerCapacity +
+                ", and was created in the year " + creationYear;
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Helicopter that = (Helicopter) o;
+        return cylindersCount == that.cylindersCount && creationYear == that.creationYear && passengerCapacity == that.passengerCapacity;
     }
 }

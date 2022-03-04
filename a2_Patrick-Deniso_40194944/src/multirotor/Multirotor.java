@@ -2,6 +2,8 @@ package multirotor;
 
 import copters.Helicopter;
 
+import java.util.Objects;
+
 public class Multirotor extends Helicopter {
     private int rotorsCount;
 
@@ -18,5 +20,29 @@ public class Multirotor extends Helicopter {
     public Multirotor(String brand, double price, int horsepower, int cylindersCount, int creationYear, int passengerCapacity, int rotorsCount){
         super(brand, price, horsepower, cylindersCount, creationYear, passengerCapacity);
         this.rotorsCount = rotorsCount;
+    }
+
+    public int getRotorsCount() {
+        return rotorsCount;
+    }
+
+    public void setRotorsCount(int rotorsCount) {
+        this.rotorsCount = rotorsCount;
+    }
+
+    @Override
+    public String toString() {
+        return "This multirotor is manufactured by " + brand + ". It costs " + price + "$, and has a horsepower of " + horsepower + "." +
+                "It also has " + cylindersCount + " cilinders, a passenger capacity of " + passengerCapacity +
+                ", and was created in the year " + creationYear + ". It has " + rotorsCount + " rotors.";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Multirotor that = (Multirotor) o;
+        return rotorsCount == that.rotorsCount;
     }
 }
