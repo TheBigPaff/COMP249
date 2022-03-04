@@ -46,7 +46,7 @@ public class MAV extends UAV {
     @Override
     public String toString() {
         return "This Micro Air Vehicle (" + model + ") is " + size + "cm small." +
-                ". It weighs " + weight + " lbs and it costs " + price + '$';
+                ". It weighs " + weight + "lbs and it costs " + price + '$';
     }
 
     @Override
