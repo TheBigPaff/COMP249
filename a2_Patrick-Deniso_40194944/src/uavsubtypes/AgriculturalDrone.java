@@ -4,10 +4,16 @@ import uav.UAV;
 
 import java.util.Objects;
 
+/**
+ * The agricultural drone is a type of UAV.
+ */
 public class AgriculturalDrone extends UAV {
     private String brand;
     private int carryCapacity;
 
+    /**
+     * Default constructor fills initializes attributes to sample data.
+     */
     public AgriculturalDrone(){
         super();
         brand = "UNKNOWN";

@@ -4,10 +4,16 @@ import flyingobject.FlyingObject;
 
 import java.util.Objects;
 
+/**
+ * The Airplane class extends from FlyingObject and is also itself the parent class for other flying objects, like various helicopters.
+ */
 public class Airplane extends FlyingObject {
     protected String brand;
     protected int horsepower;
 
+    /**
+     * Default constructor fills initializes attributes to sample data.
+     */
     public Airplane(){
         super();
         brand = "UNKNOWN";

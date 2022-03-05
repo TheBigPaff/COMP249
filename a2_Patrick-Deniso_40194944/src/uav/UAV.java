@@ -2,11 +2,15 @@ package uav;
 
 import flyingobject.FlyingObject;
 
-import java.util.Objects;
-
+/**
+ * The UAV is a type of FlyingObject, and is itself a parent class for other drones.
+ */
 public class UAV extends FlyingObject {
     protected double weight;
 
+    /**
+     * Default constructor fills initializes attributes to sample data.
+     */
     public UAV(){
         super();
         weight = 150; // avg weight in lbs for an enterprise drone

@@ -1,11 +1,14 @@
 package copters;
 
-import java.util.Objects;
-
+/**
+ * The quadcopter is a type of helicopter.
+ */
 public class Quadcopter extends Helicopter{
     private int maxFlyingSpeed;
 
-
+    /**
+     * Default constructor fills initializes attributes to sample data.
+     */
     public Quadcopter(){
         super();
         maxFlyingSpeed = 70; // avg speed

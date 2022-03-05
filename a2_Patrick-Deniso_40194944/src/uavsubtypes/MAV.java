@@ -4,11 +4,16 @@ import uav.UAV;
 
 import java.util.Objects;
 
+/**
+ * The MAV is a type of UAV.
+ */
 public class MAV extends UAV {
     private String model;
     private double size;
 
-
+    /**
+     * Default constructor fills initializes attributes to sample data.
+     */
     public MAV(){
         super();
         model = "UNKNOWN";

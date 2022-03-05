@@ -4,9 +4,15 @@ import copters.Helicopter;
 
 import java.util.Objects;
 
+/**
+ * The multirotor is a type of helicopter.
+ */
 public class Multirotor extends Helicopter {
     private int rotorsCount;
 
+    /**
+     * Default constructor fills initializes attributes to sample data.
+     */
     public Multirotor(){
         super();
         rotorsCount = 3; // multirotors have more than 2 rotors

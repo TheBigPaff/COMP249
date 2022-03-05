@@ -1,3 +1,9 @@
+// -----------------------------------------------------
+// Part: Part 1
+// Written by: Patrick Deniso (40194944)
+// -----------------------------------------------------
+
+
 import airplane.Airplane;
 import copters.Helicopter;
 import copters.Quadcopter;
@@ -7,8 +13,24 @@ import uav.UAV;
 import uavsubtypes.AgriculturalDrone;
 import uavsubtypes.MAV;
 
+/** The main class purpose is to test the program, by instantiating flying objects, 2 arrays of flying objects, then test toString and equals methods.
+ * <br> The driver class also contains the findLeastAndMostExpensive() method which prints the information of the most and least expensive UAV.
+ *
+ * @see FlyingObject FlyingObject is the base abstract class for all flying objects. <br>
+ * @see Airplane Airplane inherits from FlyingObject and is the parent class for all other types of Airplanes <br>
+ * @see Helicopter Helicopter inherits from Airplane and is the parent class for all Helicopters <br>
+ * @see Quadcopter Quadcopter inherits from Helicopter <br>
+ * @see Multirotor Multirotor inherits from Helicopter <br>
+ * @see UAV UAV inherits from FlyingObject and is the parent class for all other types of UAVs <br>
+ * @see AgriculturalDrone AgriculturalDrone inherits from UAV <br>
+ * @see MAV MAV inherits from UAV
+ */
 public class Main {
 
+    /**
+     * Main method of the driver class that will test all functionalities of the program.
+     * @param args
+     */
     public static void main(String[] args) {
         Airplane a1 = new Airplane();
         Airplane a2 = new Airplane("NormalAirplanes", 525000000, 55000);
@@ -76,6 +98,7 @@ public class Main {
         System.out.println("Helicopter 1 equal to Quadcopter 3? " + h1.equals(q3));
         System.out.println("Multirotor 1 equal to Multirotor 2? " + m1.equals(m2));
         System.out.println("Agricultural Drone 1 equal to Agricultural Drone 2? " + ad1.equals(ad2));
+        System.out.println("MAV 3 equal to MAV 4? " + mav3.equals(mav4));
 
         // TEST findLeastAndMostExpensiveUAV implementation
         System.out.println();
@@ -86,6 +109,13 @@ public class Main {
         findLeastAndMostExpensiveUAV(flyingObjects2);
     }
 
+    /**
+     * Prints the information (toString()) of the least and most expensive UAVs in an array of FlyingObjects.
+     * If no UAV is found, none are printed.
+     * If one UAV is found, that UAV will be both the most and least expensive.
+     * If more than one are found, the least and most expensive will be printed accordingly.
+     * @param objects array of objects to iterate over to find the UAVs
+     */
     public static void findLeastAndMostExpensiveUAV(FlyingObject[] objects){
         int UAVCount = 0;
         UAV leastExpensiveUAV = new UAV();

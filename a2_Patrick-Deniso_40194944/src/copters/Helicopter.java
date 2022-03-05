@@ -2,13 +2,17 @@ package copters;
 
 import airplane.Airplane;
 
-import java.util.Objects;
-
+/**
+ * The helicopter class is a type of Airplane, and is itself a parent class for other types of helicopters.
+ */
 public class Helicopter extends Airplane {
     protected int cylindersCount;
     protected int creationYear;
     protected int passengerCapacity;
 
+    /**
+     * Default constructor fills initializes attributes to sample data.
+     */
     public Helicopter(){
         super();
         cylindersCount = 1;
