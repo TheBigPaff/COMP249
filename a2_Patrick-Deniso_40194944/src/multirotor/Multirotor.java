@@ -32,9 +32,7 @@ public class Multirotor extends Helicopter {
 
     @Override
     public String toString() {
-        return "This multirotor is manufactured by " + brand + ". It costs " + price + "$, and has a horsepower of " + horsepower + "." +
-                "It also has " + cylindersCount + " cilinders, a passenger capacity of " + passengerCapacity +
-                ", and was created in the year " + creationYear + ". It has " + rotorsCount + " rotors.";
+        return super.toString() + ". It has " + rotorsCount + " rotors.";
     }
 
     @Override

@@ -54,10 +54,10 @@ public class Helicopter extends Airplane {
         this.passengerCapacity = passengerCapacity;
     }
 
+
     @Override
     public String toString() {
-        return "This helicopter is manufactured by " + brand + ". It costs " + price + "$, and has a horsepower of " + horsepower + "." +
-                "It also has " + cylindersCount + " cilinders, a passenger capacity of " + passengerCapacity +
+        return super.toString() + " It also has " + cylindersCount + " cilinders, a passenger capacity of " + passengerCapacity +
                 ", and was created in the year " + creationYear;
 
     }

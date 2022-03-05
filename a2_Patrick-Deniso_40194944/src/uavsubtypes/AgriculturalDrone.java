@@ -44,9 +44,7 @@ public class AgriculturalDrone extends UAV {
 
     @Override
     public String toString() {
-        return "This Agricultural Drone is manufactured by " + brand +
-                ". It weighs " + weight + "lbs and it costs " + price + '$' +
-                ". It has a carry capacity of " + carryCapacity;
+        return super.toString() + ". It's of the brand " + brand + " and it has a carry capacity of " + carryCapacity + "lbs";
 
     }
 

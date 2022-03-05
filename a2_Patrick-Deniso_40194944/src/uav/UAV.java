@@ -1,45 +1,40 @@
 package uav;
 
+import flyingobject.FlyingObject;
+
 import java.util.Objects;
 
-public class UAV {
+public class UAV extends FlyingObject {
     protected double weight;
-    protected double price;
 
     public UAV(){
+        super();
         weight = 150; // avg weight in lbs for an enterprise drone
         price = 1000; // average price
     }
 
     public UAV(UAV u){
+        super(u);
         this.weight = u.weight;
-        this.price = u.price;
     }
 
     public UAV(double weight, double price){
+        super(price);
         this.weight = weight;
-        this.price = price;
     }
 
     public double getWeight() {
         return weight;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     @Override
     public String toString() {
-        return "This UAV weighs " + weight + "lbs and it costs " + price + '$';
+        String flyingObjectName = this.getClass().getSimpleName();
+        return "This " + flyingObjectName + " weighs " + weight + "lbs and it costs " + price + '$';
     }
 
     @Override

@@ -31,9 +31,7 @@ public class Quadcopter extends Helicopter{
 
     @Override
     public String toString() {
-        return "This quadcopter is manufactured by " + brand + ". It costs " + price + "$, and has a horsepower of " + horsepower + "." +
-                "It also has " + cylindersCount + " cilinders, a passenger capacity of " + passengerCapacity +
-                ", and was created in the year " + creationYear + ". It has a max flying speed of " + maxFlyingSpeed;
+        return super.toString() + ". It has a max flying speed of " + maxFlyingSpeed + "km/h";
     }
 
     @Override

@@ -1,36 +1,34 @@
 package airplane;
 
+import flyingobject.FlyingObject;
+
 import java.util.Objects;
 
-public class Airplane {
+public class Airplane extends FlyingObject {
     protected String brand;
-    protected double price;
     protected int horsepower;
 
     public Airplane(){
+        super();
         brand = "UNKNOWN";
         price = 100000000; // avg price of a multi engine airplane
         horsepower = 30000; // avg horsepower
     }
 
     public Airplane(Airplane p){
+        super(p);
         this.brand = p.brand;
-        this.price = p.price;
         this.horsepower = p.horsepower;
     }
 
     public Airplane(String brand, double price, int horsepower){
+        super(price);
         this.brand = brand;
-        this.price = price;
         this.horsepower = horsepower;
     }
 
     public String getBrand() {
         return brand;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public int getHorsepower() {
@@ -45,13 +43,10 @@ public class Airplane {
         this.horsepower = horsepower;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     @Override
     public String toString() {
-        return "This airplane is manufactured by " + brand + ". It costs " + price + "$, and has a horsepower of " + horsepower + ".";
+        String flyingObjectName = this.getClass().getSimpleName();
+        return "This " + flyingObjectName + " is manufactured by " + brand + ". It costs " + price + "$, and has a horsepower of " + horsepower + ".";
     }
 
     @Override
