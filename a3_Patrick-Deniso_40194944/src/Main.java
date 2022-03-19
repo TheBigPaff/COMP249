@@ -1,20 +1,22 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        String fileName = "covidStatistics.xlsx";
+        String fileName = "doctorList.txt";
         try{
-            FileInputStream stream = new FileInputStream(fileName);
-            Scanner fileScanner = new Scanner(stream);
+            File file = new File(fileName);
+            if(!file.exists()) return;
+
+            Scanner fileScanner = new Scanner(file);
 
             String htmlFileName = fileName.split("\\.")[0] + ".html";
-            PrintWriter writer = new PrintWriter(new FileOutputStream(fileName));
+            PrintWriter writer = new PrintWriter(new FileOutputStream(htmlFileName));
             CSV2HTML(fileScanner, writer);
+
+            fileScanner.close();
+            writer.close();
         }
         catch(FileNotFoundException e){
             System.out.println(e.getMessage());
@@ -23,10 +25,10 @@ public class Main {
 
     /***
      * The method will create an HTML file containing a table with the data from the CSV file.
-     * @param file Scanner to the CSV file.
-     * @param writer PrintWriter to the HTML file.
+     * @param scanner Scanner to the CSV file.
+     * @param pw PrintWriter to the HTML file.
      */
-    public static void CSV2HTML(Scanner file, PrintWriter writer){
+    public static void CSV2HTML(Scanner scanner, PrintWriter pw){
         /* THIS IS NOT THE MOST GENERAL IMPLEMENTATION BECAUSE:
         * "In your design you may assume the following about the input CSV files:
             a. There are at least three lines in a CSV file.
@@ -36,16 +38,47 @@ public class Main {
             e. The last line may represent a note line if it begins with the text “Note:” in its first data field."
         */
 
-        String titleLine = file.nextLine().split(",")[0];
-        String[] attributes = file.nextLine().split(",");
-        while(file.hasNextLine()){
-            String[] data = file.nextLine().split(",");
-            // check if it's the last line
-            if(!file.hasNextLine()){
-                // then it's the last line
+        // write boilerplate html
+        pw.write("<!DOCTYPE html>\n<html>\n");
+        pw.write("""
+                <head>
+                <style>
+                table {font-family: arial, sans-serif;border-collapse: collapse;}
+                td, th {border: 1px solid #000000;text-align: left;padding: 8px;}
+                tr:nth-child(even) {background-color: #dddddd;}
+                span{font-size: small}
+                </style>
+                </head>
+                """);
+        pw.write("\n<body>\n<table>\n");
 
+        String titleLine = scanner.nextLine().split(",")[0];
+        pw.write("<caption>"+titleLine+"</caption>\n");
+        String[] attributes = scanner.nextLine().split(",");
+        pw.write("<tr>\n");
+        for (String attribute : attributes) {
+            pw.write("\t<td>" + attribute + "</td>\n");
+        }
+        pw.write("</tr>\n");
+        while(scanner.hasNextLine()){
+            String[] data = scanner.nextLine().split(",");
+            // check if it's the last line
+            if(!scanner.hasNextLine()){
+                // then it's the last line
+                pw.write("</table>\n");
+                pw.write("<span>"+data[0]+"</span>\n");
+            }
+            else{
+                pw.write("<tr>\n");
+                for (String attribute : data) {
+                    pw.write("\t<td>" + attribute + "</td>\n");
+                }
+                pw.write("</tr>\n");
             }
         }
 
+
+        // close initial tags
+        pw.write("</table>\n</body>\n</html>\n");
     }
 }
