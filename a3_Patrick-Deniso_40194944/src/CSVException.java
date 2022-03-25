@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 
 public class CSVException extends Exception{
     String exceptionLogFileName = "Exceptions.log";
-    String message;
+
     public CSVException(){
         super("Error: Input row cannot be parsed due to missing information");
     }
