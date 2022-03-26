@@ -81,7 +81,7 @@ public class Main {
                 // DELETE ANY CREATED FILES!!!
                 for(int j = 0; j <= i; j++){
                     File f = new File(fileNames[j].split("\\.")[0] + ".html");
-                    f.delete();
+                    if(f.exists()) f.delete();
                 }
                 System.out.println(e.getMessage() + "\nAll other opened files were deleted. Program terminating");
 
