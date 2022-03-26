@@ -1,16 +1,15 @@
-/**
- * Name and ID: Patrick Deniso - 40194944
- * COMP249
- * Assignment 3
- * Due Date 25/03/2022
- */
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
 /**
- * Parent Exception of CSVAttributeMissing and CSVDataMissing
+ * Name and ID: Patrick Deniso - 40194944
+ * COMP249
+ * Assignment 3
+ * Due Date 25/03/2022
+ *
+ *
+ * <br>Parent Exception of CSVAttributeMissing and CSVDataMissing
  */
 public class CSVException extends Exception{
     String exceptionLogFileName = "Exceptions.log";

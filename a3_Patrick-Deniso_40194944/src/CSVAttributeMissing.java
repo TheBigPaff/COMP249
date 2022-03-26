@@ -3,10 +3,9 @@
  * COMP249
  * Assignment 3
  * Due Date 25/03/2022
- */
-
-/**
- * Exception for when an attribute is missing in the CSV file to read from.
+ *
+ *
+ * <br>Exception for when an attribute is missing in the CSV file to read from.
  */
 public class CSVAttributeMissing extends CSVException{
     String fileName;

@@ -1,13 +1,25 @@
+// -----------------------------------------------------
+// Assignment 3
+// Written by: Patrick Deniso - 40194944
+// Explanation:
+/*
+    Program that converts the Excel tables into HTML tables. You are therefore required to design and implement a Java tool
+    called CSV2HTML to read and process CSV files and create the corresponding HTML tables.
+    Also implement exceptions for when things go wrong, print them in "Exceptions.log" file.
+
+    Read assignment file for more information.
+*/
+// -----------------------------------------------------
+import java.io.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * Name and ID: Patrick Deniso - 40194944
  * COMP249
  * Assignment 3
  * Due Date 25/03/2022
  */
-import java.io.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Main {
     public static final String SEP = ",";
 
@@ -44,6 +56,8 @@ public class Main {
                         "Please check that the file exists and is readable. This program will terminate after closing any opened files.";
                 CSVException.AppendException(message, "Exceptions.log");
                 System.out.println(message);
+
+                input.close();
                 return; // terminate program
             }
         }
@@ -67,11 +81,12 @@ public class Main {
                 // DELETE ANY CREATED FILES!!!
                 for(int j = 0; j <= i; j++){
                     File f = new File(fileNames[j].split("\\.")[0] + ".html");
-                    // wait for f to be created (there could be a delay)
-                    while(!f.exists()){}
                     f.delete();
                 }
-                System.out.println(e.getMessage() + "\nAll other opened files were deleted.");
+                System.out.println(e.getMessage() + "\nAll other opened files were deleted. Program terminating");
+
+                input.close();
+                return;
             }
             catch (CSVAttributeMissing e) {
                 e.AppendException();
@@ -96,6 +111,7 @@ public class Main {
         while(counter < 2){
             System.out.print("Do you want to see an HTML file? If yes, enter filename, otherwise, enter \"no\": ");
             String answer = input.next();
+            if(answer.trim().equalsIgnoreCase("no")) break;
 
             try{
                 BufferedReader reader = new BufferedReader(new FileReader(answer));
@@ -104,6 +120,8 @@ public class Main {
                     System.out.println(line);
                     line = reader.readLine();
                 }
+
+                reader.close();
             }
             catch (FileNotFoundException e) {
                 counter++;
@@ -115,6 +133,7 @@ public class Main {
         }
 
         input.close();
+        System.out.println("Thanks for using the program. Have a good one!\nMade by Patrick Deniso.");
     }
 
     /***
@@ -124,15 +143,6 @@ public class Main {
      * @param fileName the CSV filename.
      */
     public static void ConvertCSVtoHTML(Scanner scanner, PrintWriter pw, String fileName) throws CSVAttributeMissing {
-        /* THIS IS NOT THE MOST GENERAL IMPLEMENTATION BECAUSE:
-        * "In your design you may assume the following about the input CSV files:
-            a. There are at least three lines in a CSV file.
-            b. The first line represents the Title of the table.
-            c. The second line contains exactly four attributes, whose names may vary depending on the CSV file.
-            d. The third and possibly the following lines, if any, each represent the actual data records.
-            e. The last line may represent a note line if it begins with the text “Note:” in its first data field."
-        */
-
         // write boilerplate html
         pw.write("<!DOCTYPE html>\n<html>\n");
         pw.write("<head><style>table {font-family: arial, sans-serif;border-collapse: collapse;}td, th {border: 1px solid #000000;text-align: left;padding: 8px;} tr:nth-child(even) {background-color: #dddddd;}span{font-size: small}</style></head>");
